@@ -3,11 +3,10 @@
 #include <stdio.h>
 #include <locale.h>
 #include <conio.h>
-//#include <stdlib.h.>
-//#include <windows.h>
+#include <malloc.h>
 using namespace std;
 
-void add_cow(cow *cow1);
+void add_cow(cow *cow1, int &id_cow);
 
 struct cow
 {
@@ -60,4 +59,9 @@ int main()
 
 }
 
-void add_cow(cow *cow1);
+void add_cow(cow* cow1, int &id_cow)
+{
+	system("cls");
+	printf("\n Добавление новой коровы");
+	id_cow = id_cow + 1;
+}

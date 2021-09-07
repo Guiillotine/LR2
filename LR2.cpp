@@ -11,6 +11,8 @@ int main()
 {
 	struct cow *cow1;
 	int n;
+	int id_cow;
+
 	n = 1;
 	cow1 = (cow*)malloc(n * sizeof(cow));
 }

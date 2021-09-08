@@ -6,6 +6,7 @@
 #include "LR2.h"
 using namespace std;
 void add_cow(struct cow cow1[], struct food food1[], int& num_cow, int num_food);
+void add_food(struct food food1[], int& num_food);
 
 int main()
 {
@@ -18,6 +19,7 @@ int main()
 	//food1 = (food*)malloc(20 * sizeof(food));
 	num_food++;
 	strcpy(food1[0].name, "Овёс");
+	add_food(food1, num_food);
 	add_cow(cow1, food1, num_cow, num_food);
 	_getch();
 }

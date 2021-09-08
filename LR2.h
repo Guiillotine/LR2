@@ -49,11 +49,11 @@ struct warehouse //склад
 struct worker
 {
 	int id;
-	string fio;
+	char fio[100];
 	int age;
-	string prof; //Профессия
-	string stat; //в норме/ болеет/ уволен
-	int exp; //Ежемесячные затраты на обслуживание
+	char prof[100]; //Профессия
+	char stat[8]; //в норме/ болеет/ уволен
+	double pay;
 };
 
 
@@ -148,7 +148,7 @@ void add_warehouse(struct warehouse warehouse1[], int& num_warehouse)
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	int a;
-	system("cls");
+	//system("cls");
 	printf("\n Добавление нового склада");
 	warehouse1[num_warehouse].id = num_warehouse + 1;
 
@@ -166,4 +166,31 @@ void add_warehouse(struct warehouse warehouse1[], int& num_warehouse)
 
 	printf("\n № %d\n ПЛОЩАДЬ СКЛАДА(м^2) %d\n ВМЕСТИМОСТЬ СКЛАДА(количество мешков) %d\n СТОИМОСТЬ склада(в рублях) %.3f\n ЕЖЕМЕСЯЧНЫЕ ЗАТРАТЫ НА ОБСЛУЖИВАНИЕ(в рублях) %.3f\n\n", warehouse1[num_warehouse].id, warehouse1[num_warehouse].S, warehouse1[num_warehouse].kol_bags, warehouse1[num_warehouse].price, warehouse1[num_warehouse].exp);
 	num_warehouse++;
+}
+
+void add_worker(struct worker worker1[], int& num_worker)
+{
+	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
+	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
+	int a;
+	system("cls");
+	printf("\n Добавление нового сотрудника");
+	worker1[num_worker].id = num_worker + 1;
+
+	printf("\n Укажите ФИО сотрудника: ");
+	gets_s(worker1[num_worker].fio);
+
+	printf("\n Укажите возраст сотрудника (лет): ");
+	std::cin >> worker1[num_worker].age; while (getchar() != '\n');
+
+	printf("\n Укажите должность сотрудника: ");
+	gets_s(worker1[num_worker].prof);
+
+	printf("\n Укажите оклад сотрудника(в рублях): ");
+	std::cin >> worker1[num_worker].pay;
+
+	strcpy(worker1[num_worker].stat, "В норме");
+
+	printf("\n № %d\n ФИО сотрудника %s\n ВОЗРАСТ СОТРУДНИКА(лет)  %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[num_worker].id, worker1[num_worker].fio, worker1[num_worker].age, worker1[num_worker].prof, worker1[num_worker].pay);
+	num_worker++;
 }

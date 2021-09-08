@@ -41,9 +41,9 @@ struct warehouse //склад
 {
 	int id;
 	int S; //Площадь
-	int capacity; //Вместимость (в мешках)
-	int price; //Стоимость скалада
-	int exp; //Ежемесячные затраты на обслуживание
+	int kol_bags; //Вместимость (в мешках)
+	double price; //Стоимость скалада
+	double exp; //Ежемесячные затраты на обслуживание
 };
 
 struct worker
@@ -123,7 +123,7 @@ void add_cowshed (struct cowshed cowshed1[], int& num_cowsheed)
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	int a;
-	system("cls");
+	//system("cls");
 	printf("\n Добавление нового коровника");
 	cowshed1[num_cowsheed].id = num_cowsheed + 1;
 
@@ -143,3 +143,27 @@ void add_cowshed (struct cowshed cowshed1[], int& num_cowsheed)
 	num_cowsheed++;
 }
 
+void add_warehouse(struct warehouse warehouse1[], int& num_warehouse)
+{
+	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
+	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
+	int a;
+	system("cls");
+	printf("\n Добавление нового склада");
+	warehouse1[num_warehouse].id = num_warehouse + 1;
+
+	printf("\n Укажите площадь склада(м^2): ");
+	std::cin >> warehouse1[num_warehouse].S;
+
+	printf("\n Укажите вместимость склада (количество мешков): ");
+	std::cin >> warehouse1[num_warehouse].kol_bags;
+
+	printf("\n Укажите стоимость склада (в рублях): ");
+	std::cin >>warehouse1[num_warehouse].price;
+
+	printf("\n Укажите ежемесячные затраты на обслуживание (в рублях): ");
+	std::cin >> warehouse1[num_warehouse].exp;
+
+	printf("\n № %d\n ПЛОЩАДЬ СКЛАДА(м^2) %d\n ВМЕСТИМОСТЬ СКЛАДА(количество мешков) %d\n СТОИМОСТЬ склада(в рублях) %.3f\n ЕЖЕМЕСЯЧНЫЕ ЗАТРАТЫ НА ОБСЛУЖИВАНИЕ(в рублях) %.3f\n\n", warehouse1[num_warehouse].id, warehouse1[num_warehouse].S, warehouse1[num_warehouse].kol_bags, warehouse1[num_warehouse].price, warehouse1[num_warehouse].exp);
+	num_warehouse++;
+}

@@ -57,17 +57,20 @@ struct worker
 };
 
 
-void add_cow(struct cow cow1[], struct food food1[], int& num_cow, int num_food)
+void add_cow(struct cow *cow1, struct food food1[], int& num_cow, int num_food)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	int a; 
 	//system("cls");
-	printf("\n Добавление новой коровы");
+	printf("\n Добавление новой коровы\n ");
+	for (int i = 0; i < 23; i++) printf("-");
+	printf("\n");
 	cow1[num_cow].id = num_cow + 1;
 
 	printf("\n Введите кличку коровы: ");
-	std::cin >> cow1[num_cow].name; while (getchar() != '\n');
+	//std::cin >> cow1[num_cow].name; while (getchar() != '\n');
+	gets_s(cow1[num_cow].name);
 
 	printf("\n Введите породу коровы: ");
 	gets_s(cow1[num_cow].breed); //gets_s тобы вводить с пробелами
@@ -92,6 +95,7 @@ void add_cow(struct cow cow1[], struct food food1[], int& num_cow, int num_food)
 
 	printf("\n № %d\n КЛИЧКА %s\n ПОРОДА %s\n КОРМ %s\n ВОЗРАСТ(лет) %d\n ВЕС(кг) %.3f\n НАДОЙ(л/сут) %d", cow1[num_cow].id, cow1[num_cow].name, cow1[num_cow].breed, cow1[num_cow].food, cow1[num_cow].age, cow1[num_cow].weight, cow1[num_cow].nadoi);
 	num_cow++;
+	while (getchar() != '\n');
 }
 
 
@@ -100,8 +104,10 @@ void add_food(struct food food1[], int& num_food)
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	int a;
-	//system("cls");
-	printf("\n Добавление нового корма");
+	system("cls");
+	printf("\n Добавление нового корма\n ");
+	for (int i = 0; i < 23; i++) printf("-");
+	printf("\n");
 	food1[num_food].id = num_food + 1;
 
 	printf("\n Введите название корма: ");
@@ -123,8 +129,10 @@ void add_cowshed (struct cowshed cowshed1[], int& num_cowsheed)
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	int a;
-	//system("cls");
-	printf("\n Добавление нового коровника");
+	system("cls");
+	printf("\n Добавление нового коровника\n ");
+	for (int i = 0; i < 27; i++) printf("-");
+	printf("\n");
 	cowshed1[num_cowsheed].id = num_cowsheed + 1;
 
 	printf("\n Укажите площадь коровника(м^2): ");
@@ -148,8 +156,10 @@ void add_warehouse(struct warehouse warehouse1[], int& num_warehouse)
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	int a;
-	//system("cls");
-	printf("\n Добавление нового склада");
+	system("cls");
+	printf("\n Добавление нового склада\n ");
+	for (int i = 0; i < 24; i++) printf("-");
+	printf("\n");
 	warehouse1[num_warehouse].id = num_warehouse + 1;
 
 	printf("\n Укажите площадь склада(м^2): ");
@@ -174,7 +184,36 @@ void add_worker(struct worker worker1[], int& num_worker)
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	int a;
 	system("cls");
-	printf("\n Добавление нового сотрудника");
+	printf("\n Добавление нового сотрудника\n ");
+	for (int i = 0; i < 28; i++) printf("-");
+	printf("\n");
+	worker1[num_worker].id = num_worker + 1;
+
+	printf("\n Укажите ФИО сотрудника: ");
+	gets_s(worker1[num_worker].fio);
+
+	printf("\n Укажите возраст сотрудника (лет): ");
+	std::cin >> worker1[num_worker].age; while (getchar() != '\n');
+
+	printf("\n Укажите должность сотрудника: ");
+	gets_s(worker1[num_worker].prof);
+
+	printf("\n Укажите оклад сотрудника(в рублях): ");
+	std::cin >> worker1[num_worker].pay;
+
+	strcpy(worker1[num_worker].stat, "В норме");
+
+	printf("\n № %d\n ФИО сотрудника %s\n ВОЗРАСТ СОТРУДНИКА(лет)  %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[num_worker].id, worker1[num_worker].fio, worker1[num_worker].age, worker1[num_worker].prof, worker1[num_worker].pay);
+	num_worker++;
+}
+
+void stat_worker(struct worker worker1[], int& num_worker)
+{
+	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
+	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
+	int a;
+	system("cls");
+	printf("\n Изменение статуса работника");
 	worker1[num_worker].id = num_worker + 1;
 
 	printf("\n Укажите ФИО сотрудника: ");

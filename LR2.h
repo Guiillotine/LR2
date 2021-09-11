@@ -52,7 +52,7 @@ struct worker
 	char fio[100];
 	int year; //Год рождения
 	char prof[100]; //Профессия
-	char stat[8]; //в норме/ болеет/ уволен
+	char stat[10]; //в норме/ болеет/ в отпуске
 	double pay;
 };
 
@@ -72,10 +72,11 @@ void add_cow(struct cow *cow1, struct food *food1, int& num_cow, int num_food)
 	gets_s(cow1[num_cow].name);
 
 	printf("\n Введите породу коровы: ");
-	gets_s(cow1[num_cow].breed); //gets_s тобы вводить с пробелами
+	gets_s(cow1[num_cow].breed); //gets_s для ввода с пробелами
 
 	printf("\n Выберите корм для коровы: ");
-	for (int i = 0; i < num_food; i++) printf("\n %d->%s", i+1, food1[i].name);
+	for (int i = 0; i < num_food; i++) 
+		printf("\n %d->%s", i+1, food1[i].name);
 	printf("\n ");
 	std::cin >> a;
 	while (getchar() != '\n');
@@ -219,7 +220,7 @@ void stat_worker(struct worker *worker1, int num_worker)
 	strcpy(stat2, worker1[num-1].stat);
 	do
 	{
-	printf("\n\n 1->В норме\n 2->Болеет\n 3->Уволен");
+	printf("\n\n 1->В норме\n 2->Болеет\n 3->В отпуске\n\n Введите номер нового статуса: ");
 		std::cin >> a;
 		switch (a)
 		{
@@ -230,11 +231,11 @@ void stat_worker(struct worker *worker1, int num_worker)
 			strcpy(worker1[num - 1].stat, "Болеет");
 			break;
 		case 3:
-			strcpy(worker1[num - 1].stat, "Уволен");
+			strcpy(worker1[num - 1].stat, "В отпуске");
 			break;
 		}
 	} while ((a < 1) || (a > 3));
-	printf("\n Статус сотрудника %s изменен с <%s> на <%s>", worker1[num-1].fio, stat2, worker1[num-1].stat);
+	printf("\n Статус сотрудника %s изменен с <%s> на <%s>\n", worker1[num-1].fio, stat2, worker1[num-1].stat);
 }
 
 void del_worker(struct worker* worker1, int& num_worker)
@@ -244,12 +245,13 @@ void del_worker(struct worker* worker1, int& num_worker)
 	//system("cls");
 	int num = 0;
 	for (int i = 0; i < num_worker; i++)
-		printf("\n №%d\n %s\n %d г.р.\n %s\n ОКЛАД: %.3f\n <%s>\n", worker1[i].id, worker1[i].fio, worker1[i].year, worker1[i].prof, worker1[i].pay, worker1[i].stat);
-	do
+		printf("\n № %d\n ФИО СОТРУДНИКА %s\n ГОД РОЖДЕНИЯ СОТРУДНИКА %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n СТАТУС %s\n\n", worker1[i].id, worker1[i].fio, worker1[i].year, worker1[i].prof, worker1[i].pay, worker1[i].stat);
 	{
-		printf("\n Удаление сотрудника из списка\n Введите номер сотрудника, которого следует удалить из списка: ");
+		printf("\n Увольнение сотрудника \n Введите номер сотрудника в списке, чтобы уволить его: ");
 		std::cin >> num;
 	} while ((num < 1) || (num > num_worker));
+	printf("\n Сотрудник %s уволен", worker1[num-1].fio);
+
 	for (int i = num - 1; i < num_worker-1; i++)
 	{
 		strcpy(worker1[i].fio, worker1[i+1].fio);
@@ -265,4 +267,34 @@ void del_worker(struct worker* worker1, int& num_worker)
 	strcpy(worker1[num_worker - 1].stat, "");
 	worker1[num_worker - 1].pay = 0;
 	num_worker--;
+}
+
+void sell_warehouse(struct warehouse* warehouse1, int& num_warehouse)
+{
+	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
+	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
+	//system("cls");
+	int num = 0;
+	for (int i = 0; i < num_warehouse; i++)
+		printf("\n № %d\n ПЛОЩАДЬ СКЛАДА(м^2) %d\n ВМЕСТИМОСТЬ СКЛАДА(количество мешков) %d\n СТОИМОСТЬ склада(в рублях) %.3f\n ЕЖЕМЕСЯЧНЫЕ ЗАТРАТЫ НА ОБСЛУЖИВАНИЕ(в рублях) %.3f\n\n", warehouse1[i].id, warehouse1[i].S, warehouse1[i].kol_bags, warehouse1[i].price, warehouse1[i].exp);
+	do
+	{
+		printf("\n Продажа склада\n Введите номер склада, чтобы продать его: ");
+		std::cin >> num;
+	} while ((num < 1) || (num > num_warehouse));
+	printf("\n Склад №%d продан\n", num);
+
+	for (int i = num - 1; i < num_warehouse - 1; i++)
+	{
+		warehouse1[i].S = warehouse1[i+1].S;
+		warehouse1[i].kol_bags = warehouse1[i+1].kol_bags;
+		warehouse1[i].exp = warehouse1[i+1].exp;
+		warehouse1[i].price = warehouse1[i+1].price;
+	}
+	warehouse1[num_warehouse - 1].id = 0;
+	warehouse1[num_warehouse - 1].S = 0;
+	warehouse1[num_warehouse - 1].kol_bags = 0;
+	warehouse1[num_warehouse - 1].exp = 0;
+	warehouse1[num_warehouse - 1].price = 0;
+	num_warehouse--;
 }

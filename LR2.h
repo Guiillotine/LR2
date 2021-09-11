@@ -57,7 +57,7 @@ struct worker
 };
 
 
-void add_cow(struct cow *cow1, struct food food1[], int& num_cow, int num_food)
+void add_cow(struct cow *cow1, struct food *food1, int& num_cow, int num_food)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
@@ -69,12 +69,10 @@ void add_cow(struct cow *cow1, struct food food1[], int& num_cow, int num_food)
 	cow1[num_cow].id = num_cow + 1;
 
 	printf("\n Введите кличку коровы: ");
-	//std::cin >> cow1[num_cow].name; while (getchar() != '\n');
 	gets_s(cow1[num_cow].name);
 
 	printf("\n Введите породу коровы: ");
 	gets_s(cow1[num_cow].breed); //gets_s тобы вводить с пробелами
-
 
 	printf("\n Выберите корм для коровы: ");
 	for (int i = 0; i < num_food; i++) printf("\n %d->%s", i+1, food1[i].name);
@@ -99,12 +97,11 @@ void add_cow(struct cow *cow1, struct food food1[], int& num_cow, int num_food)
 }
 
 
-void add_food(struct food food1[], int& num_food)
+void add_food(struct food *food1, int& num_food)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
-	int a;
-	system("cls");
+	//system("cls");
 	printf("\n Добавление нового корма\n ");
 	for (int i = 0; i < 23; i++) printf("-");
 	printf("\n");
@@ -124,12 +121,11 @@ void add_food(struct food food1[], int& num_food)
 }
 
 
-void add_cowshed (struct cowshed cowshed1[], int& num_cowsheed)
+void add_cowshed (struct cowshed *cowshed1, int& num_cowsheed)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
-	int a;
-	system("cls");
+	//system("cls");
 	printf("\n Добавление нового коровника\n ");
 	for (int i = 0; i < 27; i++) printf("-");
 	printf("\n");
@@ -151,12 +147,11 @@ void add_cowshed (struct cowshed cowshed1[], int& num_cowsheed)
 	num_cowsheed++;
 }
 
-void add_warehouse(struct warehouse warehouse1[], int& num_warehouse)
+void add_warehouse(struct warehouse *warehouse1, int& num_warehouse)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
-	int a;
-	system("cls");
+	//system("cls");
 	printf("\n Добавление нового склада\n ");
 	for (int i = 0; i < 24; i++) printf("-");
 	printf("\n");
@@ -178,12 +173,11 @@ void add_warehouse(struct warehouse warehouse1[], int& num_warehouse)
 	num_warehouse++;
 }
 
-void add_worker(struct worker worker1[], int& num_worker)
+void add_worker(struct worker *worker1, int& num_worker)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
-	int a;
-	system("cls");
+	//system("cls");
 	printf("\n Добавление нового сотрудника\n ");
 	for (int i = 0; i < 28; i++) printf("-");
 	printf("\n");
@@ -205,14 +199,14 @@ void add_worker(struct worker worker1[], int& num_worker)
 
 	printf("\n № %d\n ФИО сотрудника %s\n ВОЗРАСТ СОТРУДНИКА(лет)  %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[num_worker].id, worker1[num_worker].fio, worker1[num_worker].age, worker1[num_worker].prof, worker1[num_worker].pay);
 	num_worker++;
+	while (getchar() != '\n');
 }
 
 void stat_worker(struct worker worker1[], int& num_worker)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
-	int a;
-	system("cls");
+	//system("cls");
 	printf("\n Изменение статуса работника");
 	worker1[num_worker].id = num_worker + 1;
 

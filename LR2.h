@@ -50,7 +50,7 @@ struct worker
 {
 	int id;
 	char fio[100];
-	int age;
+	int year; //Год рождения
 	char prof[100]; //Профессия
 	char stat[8]; //в норме/ болеет/ уволен
 	double pay;
@@ -186,8 +186,8 @@ void add_worker(struct worker *worker1, int& num_worker)
 	printf("\n Укажите ФИО сотрудника: ");
 	gets_s(worker1[num_worker].fio);
 
-	printf("\n Укажите возраст сотрудника (лет): ");
-	std::cin >> worker1[num_worker].age; while (getchar() != '\n');
+	printf("\n Укажите год рождения сотрудника: ");
+	std::cin >> worker1[num_worker].year; while (getchar() != '\n');
 
 	printf("\n Укажите должность сотрудника: ");
 	gets_s(worker1[num_worker].prof);
@@ -197,33 +197,72 @@ void add_worker(struct worker *worker1, int& num_worker)
 
 	strcpy(worker1[num_worker].stat, "В норме");
 
-	printf("\n № %d\n ФИО сотрудника %s\n ВОЗРАСТ СОТРУДНИКА(лет)  %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[num_worker].id, worker1[num_worker].fio, worker1[num_worker].age, worker1[num_worker].prof, worker1[num_worker].pay);
+	printf("\n № %d\n ФИО СОТРУДНИКА %s\n ГОД РОЖДЕНИЯ СОТРУДНИКА %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[num_worker].id, worker1[num_worker].fio, worker1[num_worker].year, worker1[num_worker].prof, worker1[num_worker].pay);
 	num_worker++;
 	while (getchar() != '\n');
 }
 
-void stat_worker(struct worker worker1[], int& num_worker)
+void stat_worker(struct worker *worker1, int num_worker)
 {
 	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
 	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
 	//system("cls");
-	printf("\n Изменение статуса работника");
-	worker1[num_worker].id = num_worker + 1;
+	int a, num = 0;
+	char stat2[8] = {};
+	for (int i = 0; i < num_worker; i++)
+		printf("\n №%d\n %s\n %d г.р.\n %s\n <%s>\n", worker1[i].id, worker1[i].fio, worker1[i].year, worker1[i].prof, worker1[i].stat);
+	do
+	{
+		printf("\n Изменение статуса сотрудника\n Введите номер сотрудника, статус которого следует изменить: ");
+		std::cin >> num;
+	} while ((num < 1) || (num > num_worker));
+	strcpy(stat2, worker1[num-1].stat);
+	do
+	{
+	printf("\n\n 1->В норме\n 2->Болеет\n 3->Уволен");
+		std::cin >> a;
+		switch (a)
+		{
+		case 1:
+			strcpy(worker1[num - 1].stat, "В норме");
+			break;
+		case 2:
+			strcpy(worker1[num - 1].stat, "Болеет");
+			break;
+		case 3:
+			strcpy(worker1[num - 1].stat, "Уволен");
+			break;
+		}
+	} while ((a < 1) || (a > 3));
+	printf("\n Статус сотрудника %s изменен с <%s> на <%s>", worker1[num-1].fio, stat2, worker1[num-1].stat);
+}
 
-	printf("\n Укажите ФИО сотрудника: ");
-	gets_s(worker1[num_worker].fio);
-
-	printf("\n Укажите возраст сотрудника (лет): ");
-	std::cin >> worker1[num_worker].age; while (getchar() != '\n');
-
-	printf("\n Укажите должность сотрудника: ");
-	gets_s(worker1[num_worker].prof);
-
-	printf("\n Укажите оклад сотрудника(в рублях): ");
-	std::cin >> worker1[num_worker].pay;
-
-	strcpy(worker1[num_worker].stat, "В норме");
-
-	printf("\n № %d\n ФИО сотрудника %s\n ВОЗРАСТ СОТРУДНИКА(лет)  %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[num_worker].id, worker1[num_worker].fio, worker1[num_worker].age, worker1[num_worker].prof, worker1[num_worker].pay);
-	num_worker++;
+void del_worker(struct worker* worker1, int& num_worker)
+{
+	SetConsoleCP(1251); //задаем кодировку для вывода символов на экран
+	SetConsoleOutputCP(1251); //задаем кодировку для ввода символов с клавиатуры в консоль
+	//system("cls");
+	int num = 0;
+	for (int i = 0; i < num_worker; i++)
+		printf("\n №%d\n %s\n %d г.р.\n %s\n ОКЛАД: %.3f\n <%s>\n", worker1[i].id, worker1[i].fio, worker1[i].year, worker1[i].prof, worker1[i].pay, worker1[i].stat);
+	do
+	{
+		printf("\n Удаление сотрудника из списка\n Введите номер сотрудника, которого следует удалить из списка: ");
+		std::cin >> num;
+	} while ((num < 1) || (num > num_worker));
+	for (int i = num - 1; i < num_worker-1; i++)
+	{
+		strcpy(worker1[i].fio, worker1[i+1].fio);
+		worker1[i].year = worker1[i+1].year;
+		strcpy(worker1[i].prof, worker1[i+1].prof);
+		strcpy(worker1[i].stat, worker1[i+1].stat);
+		worker1[i].pay = worker1[i+1].pay;
+	}
+	worker1[num_worker - 1].id = 0;
+	strcpy(worker1[num_worker - 1].fio, "");
+	worker1[num_worker - 1].year = 0;
+	strcpy(worker1[num_worker - 1].prof, "");
+	strcpy(worker1[num_worker - 1].stat, "");
+	worker1[num_worker - 1].pay = 0;
+	num_worker--;
 }

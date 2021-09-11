@@ -10,6 +10,8 @@ void add_food(struct food *food1, int& num_food);
 void add_cowshed(struct cowshed *cowshed1, int& num_cowsheed);
 void add_warehouse(struct warehouse *warehouse1, int& num_warehouse);
 void add_worker(struct worker *worker1, int& num_worker);
+void stat_worker(struct worker* worker1, int num_worker);
+void del_worker(struct worker* worker1, int& num_worker);
 
 int main()
 {
@@ -29,7 +31,7 @@ int main()
 	num_food++;
 	strcpy(food1[0].name, "Овёс");
 
-	while (1)
+	do
 	{
 		add_worker(worker1, num_worker);
 		if (num_worker >= num_worker2)
@@ -38,7 +40,7 @@ int main()
 			{
 				worker2[i].id = worker1[i].id;
 				strcpy(worker2[i].fio, worker1[i].fio);
-				worker2[i].age = worker1[i].age;
+				worker2[i].year = worker1[i].year;
 				strcpy(worker2[i].prof, worker1[i].prof);
 				strcpy(worker2[i].stat, worker1[i].stat);
 				worker2[i].pay = worker1[i].pay;
@@ -50,7 +52,7 @@ int main()
 			{
 				worker1[i].id = worker2[i].id;
 				strcpy(worker1[i].fio, worker2[i].fio);
-				worker1[i].age = worker2[i].age;
+				worker1[i].year = worker2[i].year;
 				strcpy(worker1[i].prof, worker2[i].prof);
 				strcpy(worker1[i].stat, worker2[i].stat);
 				worker1[i].pay = worker2[i].pay;
@@ -58,12 +60,16 @@ int main()
 			worker2 = {};
 			worker2 = (worker*)malloc(num_worker2 * sizeof(worker));
 		}
-		if (num_worker > 10)
+		/*if (num_worker > 10)
 			for (int i = 0; i < num_worker; i++)
 			{
-				printf("\n № %d\n ФИО сотрудника %s\n ВОЗРАСТ СОТРУДНИКА(лет)  %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[i].id, worker1[i].fio, worker1[i].age, worker1[i].prof, worker1[i].pay);
-			}
-	}
+				printf("\n № %d\n ФИО сотрудника %s\n ГОД РОЖДЕНИЯ СОТРУДНИКА  %d\n ДОЛЖНОСТЬ %s\n ОКЛАД (в рублях) %.3f\n\n", worker1[i].id, worker1[i].fio, worker1[i].year, worker1[i].prof, worker1[i].pay);
+			}*/
+		printf("\n Нажмите esc, чтобы закончить ввод");
+	} while (_getch() != 27);
+
+	while (1) del_worker(worker1, num_worker);
+	//while (1) stat_worker(worker1, num_worker);
 
 	while (1)
 	{
